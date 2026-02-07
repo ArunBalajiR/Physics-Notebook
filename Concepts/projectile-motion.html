@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion • Physics Notebook</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/article.css">
+    <style>
+        /* AI Links */
+        .ai-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+
+        .ai-label {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-right: 0.2rem;
+            font-weight: 500;
+        }
+
+        .ai-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--line-subtle);
+            color: var(--text-muted);
+            min-width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0 8px;
+        }
+
+        .ai-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+    </style>
+
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Theme Init -->
+    <script>
+        const savedTheme = localStorage.getItem('physics-notebook-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.body && document.body.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Libs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+    <nav class="sticky">
+        <div class="nav-bg"></div>
+        <a href="../index.html" class="logo">
+            <i data-lucide="arrow-left" width="16"></i>
+            Library
+        </a>
+        <button id="themeBtn">
+            <i data-lucide="moon" width="16"></i> Mode
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="text-reveal-wrapper">
+            <h1 class="hero-title">Projectile<br>Motion</h1>
+            <p style="margin-top: 2rem; font-size: 1.4rem; max-width: 40ch;">
+                Exploring the parabolic trajectory of objects in free fall and the influence of air resistance.
+            </p>
+        </div>
+    </section>
+
+    <!-- CHAPTER 1: KINEMATICS -->
+    <section>
+        <div class="split-layout">
+            <div class="content-col">
+                <h3 class="section-label" style="color: var(--accent);">01. The Parabola</h3>
+                <h2>Independent Motions</h2>
+                <p>
+                    Projectile motion can be decomposed into two independent components: constant velocity horizontal
+                    motion and constant acceleration vertical motion (due to gravity $g$).
+                </p>
+                <div class="math-block">
+                    $$x(t) = v_0 \cos(\theta) t$$
+                    $$y(t) = v_0 \sin(\theta) t - \frac{1}{2}gt^2$$
+                </div>
+                <p>
+                    By combining these equations to eliminate $t$, we find that the path $y(x)$ is a downwards-opening
+                    parabola:
+                </p>
+                <div class="math-block">
+                    $$y(x) = (\tan \theta) x - \frac{g}{2 v_0^2 \cos^2 \theta} x^2$$
+                </div>
+
+                <!-- ETU CARD -->
+                <div class="etu-card">
+                    <span class="etu-tag">Real World Analogy</span>
+                    <h4 style="margin-bottom:0.5rem;">The Water Fountain</h4>
+                    <p style="font-size: 0.95rem; margin-bottom:0;">
+                        Observe a stream of water from a drinking fountain. Each water molecule acts as an independent
+                        projectile. Despite the chaos of the stream, every single drop traces a perfect parabolic arc,
+                        governed by the same kinetic rules, creating a smooth, predictable curve.
+                    </p>
+                </div>
+
+                <!-- AI LINKS -->
+                <div class="ai-links">
+                    <span class="ai-label">Ask AI:</span>
+                    <button onclick="openAI('parabola', 'perplexity')" class="ai-btn" title="Ask Perplexity">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('parabola', 'gemini')" class="ai-btn" title="Ask Gemini">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('parabola', 'chatgpt')" class="ai-btn" title="Ask ChatGPT">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('parabola', 'claude')" class="ai-btn" title="Ask Claude">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.64">
+                            <path fill="#D77655"
+                                d="M115.612 0h280.775C459.974 0 512 52.026 512 115.612v278.415c0 63.587-52.026 115.612-115.613 115.612H115.612C52.026 509.639 0 457.614 0 394.027V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#FCF2EE" fill-rule="nonzero"
+                                d="M142.27 316.619l73.655-41.326 1.238-3.589-1.238-1.996-3.589-.001-12.31-.759-42.084-1.138-36.498-1.516-35.361-1.896-8.897-1.895-8.34-10.995.859-5.484 7.482-5.03 10.717.935 23.683 1.617 35.537 2.452 25.782 1.517 38.193 3.968h6.064l.86-2.451-2.073-1.517-1.618-1.517-36.776-24.922-39.81-26.338-20.852-15.166-11.273-7.683-5.687-7.204-2.451-15.721 10.237-11.273 13.75.935 3.513.936 13.928 10.716 29.749 23.027 38.848 28.612 5.687 4.727 2.275-1.617.278-1.138-2.553-4.271-21.13-38.193-22.546-38.848-10.035-16.101-2.654-9.655c-.935-3.968-1.617-7.304-1.617-11.374l11.652-15.823 6.445-2.073 15.545 2.073 6.547 5.687 9.655 22.092 15.646 34.78 24.265 47.291 7.103 14.028 3.791 12.992 1.416 3.968 2.449-.001v-2.275l1.997-26.641 3.69-32.707 3.589-42.084 1.239-11.854 5.863-14.206 11.652-7.683 9.099 4.348 7.482 10.716-1.036 6.926-4.449 28.915-8.72 45.294-5.687 30.331h3.313l3.792-3.791 15.342-20.372 25.782-32.227 11.374-12.789 13.27-14.129 8.517-6.724 16.1-.001 11.854 17.617-5.307 18.199-16.581 21.029-13.75 17.819-19.716 26.54-12.309 21.231 1.138 1.694 2.932-.278 44.536-9.479 24.062-4.347 28.714-4.928 12.992 6.066 1.416 6.167-5.106 12.613-30.71 7.583-36.018 7.204-53.636 12.689-.657.48.758.935 24.164 2.275 10.337.556h25.301l47.114 3.514 12.309 8.139 7.381 9.959-1.238 7.583-18.957 9.655-25.579-6.066-59.702-14.205-20.474-5.106-2.83-.001v1.694l17.061 16.682 31.266 28.233 39.152 36.397 1.997 8.999-5.03 7.102-5.307-.758-34.401-25.883-13.27-11.651-30.053-25.302-1.996-.001v2.654l6.926 10.136 36.574 54.975 1.895 16.859-2.653 5.485-9.479 3.311-10.414-1.895-21.408-30.054-22.092-33.844-17.819-30.331-2.173 1.238-10.515 113.261-4.929 5.788-11.374 4.348-9.478-7.204-5.03-11.652 5.03-23.027 6.066-30.052 4.928-23.886 4.449-29.674 2.654-9.858-.177-.657-2.173.278-22.37 30.71-34.021 45.977-26.919 28.815-6.445 2.553-11.173-5.789 1.037-10.337 6.243-9.2 37.257-47.392 22.47-29.371 14.508-16.961-.101-2.451h-.859l-98.954 64.251-17.618 2.275-7.583-7.103.936-11.652 3.589-3.791 29.749-20.474-.101.102.024.101z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('parabola', 'grok')" class="ai-btn" title="Ask Grok">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.641">
+                            <path
+                                d="M115.612 0h280.776C459.975 0 512 52.026 512 115.612v278.416c0 63.587-52.025 115.613-115.612 115.613H115.612C52.026 509.641 0 457.615 0 394.028V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#fff"
+                                d="M213.235 306.019l178.976-180.002v.169l51.695-51.763c-.924 1.32-1.86 2.605-2.785 3.89-39.281 54.164-58.46 80.649-43.07 146.922l-.09-.101c10.61 45.11-.744 95.137-37.398 131.836-46.216 46.306-120.167 56.611-181.063 14.928l42.462-19.675c38.863 15.278 81.392 8.57 111.947-22.03 30.566-30.6 37.432-75.159 22.065-112.252-2.92-7.025-11.67-8.795-17.792-4.263l-124.947 92.341zm-25.786 22.437l-.033.034L68.094 435.217c7.565-10.429 16.957-20.294 26.327-30.149 26.428-27.803 52.653-55.359 36.654-94.302-21.422-52.112-8.952-113.177 30.724-152.898 41.243-41.254 101.98-51.661 152.706-30.758 11.23 4.172 21.016 10.114 28.638 15.639l-42.359 19.584c-39.44-16.563-84.629-5.299-112.207 22.313-37.298 37.308-44.84 102.003-1.128 143.81z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="sim-controls">
+                    <div class="slider-group">
+                        <label>Initial Velocity ($v_0$) <span id="val-v">50</span> m/s</label>
+                        <input type="range" id="input-v" min="10" max="100" step="1" value="50">
+                    </div>
+                    <div class="slider-group">
+                        <label>Angle ($\theta$) <span id="val-ang">45</span>°</label>
+                        <input type="range" id="input-ang" min="0" max="90" step="1" value="45">
+                    </div>
+                    <div class="slider-group">
+                        <label>Gravity ($g$) <span id="val-g">9.8</span> m/s²</label>
+                        <input type="range" id="input-g" min="1.6" max="25" step="0.1" value="9.8">
+                    </div>
+                    <div style="margin-top:1rem; display:flex; gap:10px;">
+                        <button id="btn-fire"
+                            style="flex:1; padding:12px; background:var(--accent); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:600;">Fire
+                            Projectile</button>
+                        <button id="btn-clear"
+                            style="padding:12px; background:var(--line-subtle); color:var(--text-main); border:none; border-radius:4px; cursor:pointer;">Clear</button>
+                    </div>
+                </div>
+            </div>
+            <div class="visual-col">
+                <canvas id="canvas-projectile"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAPTER 2: AIR RESISTANCE -->
+    <section>
+        <div class="split-layout">
+            <div class="content-col">
+                <h3 class="section-label" style="color: var(--accent-secondary);">02. Drag</h3>
+                <h2>The Air Strikes Back</h2>
+                <p>
+                    In the real world, objects moving through a fluid (like air) experience a drag force $F_d$ that
+                    opposes their motion. For high speeds, this force is often proportional to the square of velocity:
+                </p>
+                <div class="math-block">
+                    $$F_d = \frac{1}{2} \rho v^2 C_d A$$
+                </div>
+                <p>
+                    This force constantly changes direction and magnitude, making numerical integration necessary.
+                </p>
+                <!-- ETU CARD -->
+                <div class="etu-card">
+                    <span class="etu-tag">Effect</span>
+                    <h4 style="margin-bottom:0.5rem;">Terminal Velocity</h4>
+                    <p style="font-size: 0.95rem; margin-bottom:0;">
+                        As an object falls faster, drag increases. Eventually, drag equals gravity ($F_d = mg$). At this
+                        point, the object stops accelerating.
+                    </p>
+                </div>
+                <!-- AI LINKS -->
+                <div class="ai-links">
+                    <span class="ai-label">Ask AI:</span>
+                    <button onclick="openAI('drag', 'perplexity')" class="ai-btn" title="Ask Perplexity">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('drag', 'gemini')" class="ai-btn" title="Ask Gemini">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('drag', 'chatgpt')" class="ai-btn" title="Ask ChatGPT">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('drag', 'claude')" class="ai-btn" title="Ask Claude">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.64">
+                            <path fill="#D77655"
+                                d="M115.612 0h280.775C459.974 0 512 52.026 512 115.612v278.415c0 63.587-52.026 115.612-115.613 115.612H115.612C52.026 509.639 0 457.614 0 394.027V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#FCF2EE" fill-rule="nonzero"
+                                d="M142.27 316.619l73.655-41.326 1.238-3.589-1.238-1.996-3.589-.001-12.31-.759-42.084-1.138-36.498-1.516-35.361-1.896-8.897-1.895-8.34-10.995.859-5.484 7.482-5.03 10.717.935 23.683 1.617 35.537 2.452 25.782 1.517 38.193 3.968h6.064l.86-2.451-2.073-1.517-1.618-1.517-36.776-24.922-39.81-26.338-20.852-15.166-11.273-7.683-5.687-7.204-2.451-15.721 10.237-11.273 13.75.935 3.513.936 13.928 10.716 29.749 23.027 38.848 28.612 5.687 4.727 2.275-1.617.278-1.138-2.553-4.271-21.13-38.193-22.546-38.848-10.035-16.101-2.654-9.655c-.935-3.968-1.617-7.304-1.617-11.374l11.652-15.823 6.445-2.073 15.545 2.073 6.547 5.687 9.655 22.092 15.646 34.78 24.265 47.291 7.103 14.028 3.791 12.992 1.416 3.968 2.449-.001v-2.275l1.997-26.641 3.69-32.707 3.589-42.084 1.239-11.854 5.863-14.206 11.652-7.683 9.099 4.348 7.482 10.716-1.036 6.926-4.449 28.915-8.72 45.294-5.687 30.331h3.313l3.792-3.791 15.342-20.372 25.782-32.227 11.374-12.789 13.27-14.129 8.517-6.724 16.1-.001 11.854 17.617-5.307 18.199-16.581 21.029-13.75 17.819-19.716 26.54-12.309 21.231 1.138 1.694 2.932-.278 44.536-9.479 24.062-4.347 28.714-4.928 12.992 6.066 1.416 6.167-5.106 12.613-30.71 7.583-36.018 7.204-53.636 12.689-.657.48.758.935 24.164 2.275 10.337.556h25.301l47.114 3.514 12.309 8.139 7.381 9.959-1.238 7.583-18.957 9.655-25.579-6.066-59.702-14.205-20.474-5.106-2.83-.001v1.694l17.061 16.682 31.266 28.233 39.152 36.397 1.997 8.999-5.03 7.102-5.307-.758-34.401-25.883-13.27-11.651-30.053-25.302-1.996-.001v2.654l6.926 10.136 36.574 54.975 1.895 16.859-2.653 5.485-9.479 3.311-10.414-1.895-21.408-30.054-22.092-33.844-17.819-30.331-2.173 1.238-10.515 113.261-4.929 5.788-11.374 4.348-9.478-7.204-5.03-11.652 5.03-23.027 6.066-30.052 4.928-23.886 4.449-29.674 2.654-9.858-.177-.657-2.173.278-22.37 30.71-34.021 45.977-26.919 28.815-6.445 2.553-11.173-5.789 1.037-10.337 6.243-9.2 37.257-47.392 22.47-29.371 14.508-16.961-.101-2.451h-.859l-98.954 64.251-17.618 2.275-7.583-7.103.936-11.652 3.589-3.791 29.749-20.474-.101.102.024.101z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('drag', 'grok')" class="ai-btn" title="Ask Grok">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.641">
+                            <path
+                                d="M115.612 0h280.776C459.975 0 512 52.026 512 115.612v278.416c0 63.587-52.025 115.613-115.612 115.613H115.612C52.026 509.641 0 457.615 0 394.028V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#fff"
+                                d="M213.235 306.019l178.976-180.002v.169l51.695-51.763c-.924 1.32-1.86 2.605-2.785 3.89-39.281 54.164-58.46 80.649-43.07 146.922l-.09-.101c10.61 45.11-.744 95.137-37.398 131.836-46.216 46.306-120.167 56.611-181.063 14.928l42.462-19.675c38.863 15.278 81.392 8.57 111.947-22.03 30.566-30.6 37.432-75.159 22.065-112.252-2.92-7.025-11.67-8.795-17.792-4.263l-124.947 92.341zm-25.786 22.437l-.033.034L68.094 435.217c7.565-10.429 16.957-20.294 26.327-30.149 26.428-27.803 52.653-55.359 36.654-94.302-21.422-52.112-8.952-113.177 30.724-152.898 41.243-41.254 101.98-51.661 152.706-30.758 11.23 4.172 21.016 10.114 28.638 15.639l-42.359 19.584c-39.44-16.563-84.629-5.299-112.207 22.313-37.298 37.308-44.84 102.003-1.128 143.81z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="sim-controls" style="margin-top: 2rem;">
+                    <div class="slider-group">
+                        <label>Drag Coefficient <span id="val-drag">0.00</span></label>
+                        <input type="range" id="input-drag" min="0" max="0.1" step="0.001" value="0">
+                    </div>
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem; margin-bottom:0;">
+                        Set to > 0 to enable air resistance. Notice how the path becomes asymmetric!
+                    </p>
+                </div>
+            </div>
+            <div class="visual-col">
+                <canvas id="canvas-drag"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="references">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h3>Academic References</h3>
+            <ul>
+                <li><strong>Halliday, D., Resnick, R., & Walker, J.</strong> (2013). <a
+                        href="https://www.wiley.com/en-us/Fundamentals+of+Physics%2C+10th+Edition-p-9781118230718"
+                        target="_blank">Fundamentals of Physics</a>. 10th Edition. Wiley.</li>
+                <li><strong>Serway, R. A., & Jewett, J. W.</strong> (2018). <a
+                        href="https://www.cengage.com/c/physics-for-scientists-and-engineers-10e-serway/9781337553278/"
+                        target="_blank">Physics for Scientists and Engineers with Modern Physics</a>. Cengage Learning.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="../js/common.js"></script>
+    <script>
+        function openAI(topic, model) {
+            let prompt = "";
+            switch (topic) {
+                case 'parabola':
+                    prompt = "Explain why projectile motion traces a parabola and how the horizontal and vertical motions are independent.";
+                    break;
+                case 'drag':
+                    prompt = "Explain the effect of air resistance on projectile motion and the concept of terminal velocity.";
+                    break;
+            }
+            const encoded = encodeURIComponent(prompt);
+
+            if (model === 'gemini') {
+                navigator.clipboard.writeText(prompt).then(() => {
+                    alert("Gemini doesn't support auto-fill. The prompt has been copied to your clipboard.");
+                    window.open('https://gemini.google.com/app', '_blank');
+                });
+                return;
+            }
+
+            let url = "";
+            switch (model) {
+                case 'perplexity': url = `https://www.perplexity.ai/search?q=${encoded}`; break;
+                case 'chatgpt': url = `https://chatgpt.com/?q=${encoded}`; break;
+                case 'claude': url = `https://claude.ai/new?q=${encoded}`; break;
+                case 'grok': url = `https://grok.com/?q=${encoded}`; break;
+            }
+            if (url) window.open(url, '_blank');
+        }
+        const APP = {
+            visuals: [],
+            observer: null,
+
+            init() {
+                this.setupObserver();
+                this.initScrollAnimations();
+                this.initVisuals();
+
+                window.addEventListener('theme-changed', (e) => {
+                    this.visuals.forEach(v => v.updateColors());
+                });
+            },
+
+            setupObserver() {
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const visual = this.visuals.find(v => v.canvas === entry.target);
+                        if (visual) visual.isVisible = entry.isIntersecting;
+                    });
+                }, { threshold: 0.1 });
+            },
+
+            initScrollAnimations() {
+                gsap.registerPlugin(ScrollTrigger);
+                gsap.utils.toArray('h1, h2, h3').forEach(el => {
+                    gsap.from(el, { opacity: 0, y: 30, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%" } });
+                });
+                gsap.utils.toArray('.math-block').forEach(el => {
+                    gsap.from(el, { scale: 0.95, opacity: 0, duration: 1, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 90%" } });
+                });
+            },
+
+            initVisuals() {
+                this.addVisual(new ProjectileSim('canvas-projectile', false));
+                this.addVisual(new ProjectileSim('canvas-drag', true));
+            },
+
+            addVisual(visual) {
+                this.visuals.push(visual);
+                this.observer.observe(visual.canvas);
+            }
+        };
+
+        class BaseVisual {
+            constructor() {
+                this.isVisible = false;
+                // Defer resize until subclass sets canvas
+            }
+            updateColors() {
+                this.color = getComputedStyle(document.body).getPropertyValue('--text-main').trim();
+                this.accent = getComputedStyle(document.body).getPropertyValue('--accent').trim();
+            }
+            loop() {
+                if (this.isVisible) this.draw();
+                requestAnimationFrame(() => this.loop());
+            }
+            draw() { }
+        }
+
+        class ProjectileSim extends BaseVisual {
+            constructor(id, isDragDemo) {
+                super();
+                this.canvas = document.getElementById(id);
+                this.ctx = this.canvas.getContext('2d');
+                this.isDragDemo = isDragDemo;
+                this.updateColors();
+
+                this.inputs = {
+                    v: document.getElementById('input-v'),
+                    ang: document.getElementById('input-ang'),
+                    g: document.getElementById('input-g'),
+                    drag: document.getElementById('input-drag')
+                };
+
+                if (!isDragDemo) {
+                    ['v', 'ang', 'g'].forEach(k => {
+                        this.inputs[k].addEventListener('input', (e) => {
+                            document.getElementById(`val-${k}`).innerText = e.target.value;
+                        });
+                    });
+                    document.getElementById('btn-fire').addEventListener('click', () => window.dispatchEvent(new CustomEvent('fire-projectile')));
+                    document.getElementById('btn-clear').addEventListener('click', () => window.dispatchEvent(new CustomEvent('clear-projectile')));
+                } else {
+                    this.inputs.drag.addEventListener('input', (e) => {
+                        document.getElementById('val-drag').innerText = e.target.value;
+                    });
+                }
+
+                window.addEventListener('fire-projectile', () => this.fire());
+                window.addEventListener('clear-projectile', () => this.projectiles = []);
+                window.addEventListener('resize', () => this.resize());
+
+                this.projectiles = [];
+                this.resize();
+                this.loop();
+            }
+
+            resize() {
+                const rect = this.canvas.parentElement.getBoundingClientRect();
+                this.canvas.width = rect.width * 2;
+                this.canvas.height = rect.height * 2;
+                this.scale = 2;
+            }
+
+            fire() {
+                const v0 = parseFloat(this.inputs.v.value);
+                const angDeg = parseFloat(this.inputs.ang.value);
+                const angRad = angDeg * Math.PI / 180;
+
+                const p = {
+                    x: 10,
+                    y: this.canvas.height / this.scale - 10,
+                    vx: v0 * Math.cos(angRad),
+                    vy: -v0 * Math.sin(angRad),
+                    trace: [],
+                    active: true,
+                    g: parseFloat(this.inputs.g.value),
+                    drag: this.isDragDemo ? parseFloat(this.inputs.drag.value) : 0
+                };
+                p.trace.push({ x: p.x, y: p.y });
+                this.projectiles.push(p);
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                const dt = 0.05;
+                const viewScale = 3.0;
+
+                // Grid
+                this.ctx.strokeStyle = this.color;
+                this.ctx.globalAlpha = 0.1;
+                this.ctx.lineWidth = 1;
+                const bottom = this.canvas.height - 20;
+                this.ctx.beginPath(); this.ctx.moveTo(0, bottom); this.ctx.lineTo(this.canvas.width, bottom); this.ctx.stroke();
+                this.ctx.globalAlpha = 1;
+
+                this.projectiles.forEach(p => {
+                    if (!p.active) {
+                        this.drawTrace(p, viewScale);
+                        return;
+                    }
+
+                    let ax = 0;
+                    let ay = p.g;
+
+                    const vMag = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+                    if (p.drag > 0) {
+                        const fMag = p.drag * vMag * vMag;
+                        ax += -(p.vx / vMag) * fMag;
+                        ay += -(p.vy / vMag) * fMag;
+                    }
+
+                    p.vx += ax * dt;
+                    p.vy += ay * dt;
+                    p.x += p.vx * dt * viewScale;
+                    p.y += p.vy * dt * viewScale;
+
+                    if (p.y > this.canvas.height / this.scale - 10) {
+                        p.y = this.canvas.height / this.scale - 10;
+                        p.active = false;
+                    }
+                    if (p.x > this.canvas.width / this.scale) p.active = false;
+
+                    if (this.projectiles.length < 50 || p.trace.length % 5 === 0) {
+                        p.trace.push({ x: p.x, y: p.y });
+                    }
+
+                    this.drawTrace(p, 1);
+
+                    this.ctx.fillStyle = "#CC2936";
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x * this.scale, p.y * this.scale, 6, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+            }
+
+            drawTrace(p, scale) {
+                this.ctx.strokeStyle = this.accent;
+                this.ctx.lineWidth = 2;
+                this.ctx.beginPath();
+                if (p.trace.length > 0) {
+                    this.ctx.moveTo(p.trace[0].x * this.scale, p.trace[0].y * this.scale);
+                    for (let i = 1; i < p.trace.length; i++) {
+                        this.ctx.lineTo(p.trace[i].x * this.scale, p.trace[i].y * this.scale);
+                    }
+                    if (p.active) this.ctx.lineTo(p.x * this.scale, p.y * this.scale);
+                }
+                this.ctx.stroke();
+            }
+        }
+
+        window.onload = () => APP.init();
+
+    </script>
+</body>
+
+</html>
