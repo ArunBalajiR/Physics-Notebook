@@ -1,0 +1,254 @@
+# Physics Notebook: Concept Page Pattern
+
+This guide documents the standard pattern for creating new concept pages in the Physics Notebook project. Follow this template to ensure consistency in design, functionality, and code structure.
+
+## 1. File Structure & Location
+-   **New Concept File**: Create in `Concepts/<concept-name>.html`.
+-   **Asset Linking**: Ensure CSS (`../css/`) and JS (`../js/`) paths are correct relative to the `Concepts/` directory.
+
+## 2. HTML Template
+Use the following structure for the HTML file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Concept Title] • Physics Notebook</title>
+
+    <!-- Standard Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Standard Framework Styles -->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/article.css">
+    
+    <!-- Page Specific Styles (AI Links types) -->
+    <style>
+        /* ... Copy AI Links styles from existing pages ... */
+        /* ... Add specific styles for interactive controls ... */
+    </style>
+
+    <!-- MathJax (LaTeX) Support -->
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Theme Initialization -->
+    <script>
+        const savedTheme = localStorage.getItem('physics-notebook-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="sticky">
+        <div class="nav-bg"></div>
+        <a href="../index.html" class="logo"><i data-lucide="arrow-left" width="16"></i> Library</a>
+        <button id="themeBtn"><i data-lucide="moon" width="16"></i> Mode</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="text-reveal-wrapper">
+            <h1 class="hero-title">[Concept Title]<br>[Second Line]</h1>
+            <p style="margin-top: 2rem; font-size: 1.4rem; max-width: 40ch;">
+                [One sentence description of the concept].
+            </p>
+        </div>
+    </section>
+
+    <!-- Standard Section Layout (Repeat for 3 Sections) -->
+    <section>
+        <div class="split-layout">
+            <!-- Left: Content -->
+            <div class="content-col">
+                <h3 class="section-label" style="color: var(--accent);">01. [Section Label]</h3>
+                <h2>[Section Title]</h2>
+                <p>[Explanatory text...]</p>
+                
+                <!-- Math Block -->
+                <div class="math-block">$$ [Equation] $$</div>
+                
+                <!-- Setup/Analogy Card -->
+                <div class="etu-card">
+                    <span class="etu-tag">Real World Analogy</span>
+                    <h4 style="margin-bottom:0.5rem;">[Analogy Title]</h4>
+                    <p style="font-size: 0.95rem; margin-bottom:0;">[Analogy Description]</p>
+                </div>
+
+                <!-- AI Links -->
+                <div class="ai-links">
+                    <span class="ai-label">Ask AI:</span>
+                    <!-- Example: Perplexity, Gemini, ChatGPT, Claude, Grok -->
+                    <button onclick="openAI('topic', 'perplexity')" class="ai-btn" title="Ask Perplexity"><svg ... ></svg></button>
+                    <button onclick="openAI('topic', 'gemini')" class="ai-btn" title="Ask Gemini"><svg ... ></svg></button>
+                    <button onclick="openAI('topic', 'chatgpt')" class="ai-btn" title="Ask ChatGPT"><svg ... ></svg></button>
+                    <button onclick="openAI('topic', 'claude')" class="ai-btn" title="Ask Claude"><svg ... ></svg></button>
+                    <button onclick="openAI('topic', 'grok')" class="ai-btn" title="Ask Grok"><svg ... ></svg></button>
+                </div>
+            </div>
+
+            <!-- Right: Visualization -->
+            <div class="visual-col">
+                <canvas id="canvas-[id]"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Additional sections follow same pattern... -->
+
+    <!-- Scripts -->
+    <script src="../js/common.js"></script>
+    <script>
+        // ... Page Specific JS (See Section 3) ...
+    </script>
+</body>
+</html>
+```
+
+## 3. JavaScript Architecture
+
+The JavaScript structure handles the canvas animations, theme updates, and intersection observing (for performance).
+
+### 3.1 Standard `openAI` Function
+Includes handlers for all 5 supported AI models.
+
+```javascript
+function openAI(topic, model) {
+    let prompt = "";
+    // Define prompts based on specific topics in the page
+    switch (topic) {
+        case 'topic1': prompt = "Query 1..."; break;
+        // ...
+    }
+    const encoded = encodeURIComponent(prompt);
+
+    // Gemini Handling (Clipboard + Open)
+    if (model === 'gemini') { /* ... standard gemini handler ... */ return; }
+
+    // URL Generation
+    let url = "";
+    switch (model) {
+        case 'perplexity': url = `https://www.perplexity.ai/search?q=${encoded}`; break;
+        case 'chatgpt': url = `https://chatgpt.com/?q=${encoded}`; break;
+        case 'claude': url = `https://claude.ai/new?q=${encoded}`; break;
+        case 'grok': url = `https://grok.com/?q=${encoded}`; break;
+    }
+    if (url) window.open(url, '_blank');
+}
+```
+
+### 3.2 The `APP` Object
+Manages initialization and lifecycle.
+
+```javascript
+const APP = {
+    visuals: [],
+    observer: null,
+
+    init() {
+        this.setupObserver();
+        this.initScrollAnimations(); // GSAP setup
+        this.initVisuals(); // Instantiate visuals
+
+        // Listen for theme changes to update canvas colors
+        window.addEventListener('theme-changed', (e) => {
+            this.visuals.forEach(v => v.updateColors());
+        });
+    },
+
+    setupObserver() {
+        // Only render canvases when visible
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const visual = this.visuals.find(v => v.canvas === entry.target);
+                if (visual) visual.isVisible = entry.isIntersecting;
+            });
+        }, { threshold: 0.1 });
+    },
+
+    initVisuals() {
+        this.addVisual(new VisualClass1('canvas-id-1'));
+        this.addVisual(new VisualClass2('canvas-id-2'));
+    },
+
+    addVisual(visual) {
+        this.visuals.push(visual);
+        this.observer.observe(visual.canvas);
+    }
+};
+
+window.onload = () => APP.init();
+```
+
+### 3.3 Visual Classes
+All visualizations should extend a `BaseVisual` class to handle common canvas logic (HiDPI scaling, colors, loop).
+
+```javascript
+class BaseVisual {
+    constructor(id) {
+        this.canvas = document.getElementById(id);
+        this.ctx = this.canvas.getContext('2d');
+        this.isVisible = false;
+        this.updateColors();
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+        this.loop();
+    }
+    updateColors() {
+        // Fetch CSS variables for theme consistency
+        this.color = getComputedStyle(document.body).getPropertyValue('--text-main').trim();
+        this.bg = getComputedStyle(document.body).getPropertyValue('--bg-color').trim();
+        this.accent = getComputedStyle(document.body).getPropertyValue('--accent').trim();
+        this.secondary = getComputedStyle(document.body).getPropertyValue('--accent-secondary').trim();
+    }
+    resize() {
+        // Handle Retina/HighDPI displays
+        const rect = this.canvas.parentElement.getBoundingClientRect();
+        this.canvas.width = rect.width * 2;
+        this.canvas.height = rect.height * 2;
+        this.scale = 2;
+        this.cx = this.canvas.width / 2;
+        this.cy = this.canvas.height / 2;
+    }
+    loop() {
+        if (this.isVisible) this.draw();
+        requestAnimationFrame(() => this.loop());
+    }
+    draw() { /* Override this */ }
+}
+
+class MySpecificVisual extends BaseVisual {
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        // Custom drawing logic using this.ctx, this.cx, this.cy, this.scale
+    }
+}
+```
+
+## 4. Integration
+1.  Add the new file to `Concepts/`.
+2.  Open `index.html`.
+3.  Add a new entry to the `DATA` array:
+    ```javascript
+    {
+        id: 'new-id',
+        title: 'New Concept Title',
+        domain: 'Domain Name',
+        desc: 'Short description for the card.',
+        type: 'new-type', // Used for icon mapping if needed
+        href: 'Concepts/new-concept.html'
+    }
+    ```
