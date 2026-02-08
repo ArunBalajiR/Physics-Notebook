@@ -244,7 +244,7 @@ Each concept must:
 
 ## 📊 GitHub Star History
 
-<a href="https://star-history.com/#YOUR_USERNAME/Physics-Notebook&Date">
+<a href="https://star-history.com/CasberryIndia/Physics-Notebook&Date">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=YOUR_USERNAME/Physics-Notebook&type=Date&theme=dark" />
     <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=YOUR_USERNAME/Physics-Notebook&type=Date" />
