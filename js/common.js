@@ -13,13 +13,15 @@ const ThemeManager = {
     setupTheme() {
         // Check localStorage first, fallback to 'light'
         const savedTheme = localStorage.getItem('physics-notebook-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
         document.body.setAttribute('data-theme', savedTheme);
     },
 
     toggle() {
-        const current = document.body.getAttribute('data-theme');
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
         const next = current === 'light' ? 'dark' : 'light';
 
+        document.documentElement.setAttribute('data-theme', next);
         document.body.setAttribute('data-theme', next);
         localStorage.setItem('physics-notebook-theme', next);
 
