@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnetic Fields • Physics Notebook</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/article.css">
+    <style>
+        /* AI Links */
+        .ai-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+
+        .ai-label {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-right: 0.2rem;
+            font-weight: 500;
+        }
+
+        .ai-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--line-subtle);
+            color: var(--text-muted);
+            min-width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0 8px;
+        }
+
+        .ai-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+    </style>
+
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Theme Init -->
+    <script>
+        const savedTheme = localStorage.getItem('physics-notebook-theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.body && document.body.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Libs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <nav class="sticky">
+        <div class="nav-bg"></div>
+        <a href="../index.html" class="logo">
+            <i data-lucide="arrow-left" width="16"></i>
+            Library
+        </a>
+        <button id="themeBtn">
+            <i data-lucide="moon" width="16"></i> Mode
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="text-reveal-wrapper">
+            <h1 class="hero-title">Magnetic<br>Fields</h1>
+            <p style="margin-top: 2rem; font-size: 1.4rem; max-width: 40ch;">
+                Invisible forces that surround magnets and moving charges, shaping our technological world.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 1: Magnetic Dipole -->
+    <section>
+        <div class="split-layout">
+            <div class="content-col">
+                <h3 class="section-label" style="color: var(--accent);">01. The Bar Magnet</h3>
+                <h2>Magnetic Dipole</h2>
+                <p>
+                    A <strong>bar magnet</strong> creates a magnetic field similar to an electric dipole.
+                    Field lines emerge from the <strong>north pole</strong> and enter the
+                    <strong>south pole</strong>, forming closed loops. Unlike electric field lines,
+                    magnetic field lines never begin or end—they always form continuous closed paths.
+                </p>
+                <div class="math-block">
+                    $$\vec{B} = \frac{\mu_0}{4\pi} \frac{2\vec{m}}{r^3}$$
+                </div>
+                <p>
+                    For a magnetic dipole with moment $\vec{m}$ at distance $r$, the field strength follows
+                    an inverse cube relationship. Here, $\mu_0$ is the permeability of free space.
+                </p>
+
+                <div class="etu-card">
+                    <span class="etu-tag">Real World Analogy</span>
+                    <h4 style="margin-bottom:0.5rem;">Compass Navigation</h4>
+                    <p style="font-size: 0.95rem; margin-bottom:0;">
+                        Earth itself is a giant magnet! A compass needle aligns with Earth's magnetic field,
+                        pointing toward magnetic north. This property has guided explorers for centuries.
+                    </p>
+                </div>
+
+                <div class="ai-links">
+                    <span class="ai-label">Ask AI:</span>
+                    <button onclick="openAI('dipole', 'perplexity')" class="ai-btn" title="Ask Perplexity">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('dipole', 'gemini')" class="ai-btn" title="Ask Gemini">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('dipole', 'chatgpt')" class="ai-btn" title="Ask ChatGPT">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('dipole', 'claude')" class="ai-btn" title="Ask Claude">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.64">
+                            <path fill="#D77655"
+                                d="M115.612 0h280.775C459.974 0 512 52.026 512 115.612v278.415c0 63.587-52.026 115.612-115.613 115.612H115.612C52.026 509.639 0 457.614 0 394.027V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#FCF2EE" fill-rule="nonzero"
+                                d="M142.27 316.619l73.655-41.326 1.238-3.589-1.238-1.996-3.589-.001-12.31-.759-42.084-1.138-36.498-1.516-35.361-1.896-8.897-1.895-8.34-10.995.859-5.484 7.482-5.03 10.717.935 23.683 1.617 35.537 2.452 25.782 1.517 38.193 3.968h6.064l.86-2.451-2.073-1.517-1.618-1.517-36.776-24.922-39.81-26.338-20.852-15.166-11.273-7.683-5.687-7.204-2.451-15.721 10.237-11.273 13.75.935 3.513.936 13.928 10.716 29.749 23.027 38.848 28.612 5.687 4.727 2.275-1.617.278-1.138-2.553-4.271-21.13-38.193-22.546-38.848-10.035-16.101-2.654-9.655c-.935-3.968-1.617-7.304-1.617-11.374l11.652-15.823 6.445-2.073 15.545 2.073 6.547 5.687 9.655 22.092 15.646 34.78 24.265 47.291 7.103 14.028 3.791 12.992 1.416 3.968 2.449-.001v-2.275l1.997-26.641 3.69-32.707 3.589-42.084 1.239-11.854 5.863-14.206 11.652-7.683 9.099 4.348 7.482 10.716-1.036 6.926-4.449 28.915-8.72 45.294-5.687 30.331h3.313l3.792-3.791 15.342-20.372 25.782-32.227 11.374-12.789 13.27-14.129 8.517-6.724 16.1-.001 11.854 17.617-5.307 18.199-16.581 21.029-13.75 17.819-19.716 26.54-12.309 21.231 1.138 1.694 2.932-.278 44.536-9.479 24.062-4.347 28.714-4.928 12.992 6.066 1.416 6.167-5.106 12.613-30.71 7.583-36.018 7.204-53.636 12.689-.657.48.758.935 24.164 2.275 10.337.556h25.301l47.114 3.514 12.309 8.139 7.381 9.959-1.238 7.583-18.957 9.655-25.579-6.066-59.702-14.205-20.474-5.106-2.83-.001v1.694l17.061 16.682 31.266 28.233 39.152 36.397 1.997 8.999-5.03 7.102-5.307-.758-34.401-25.883-13.27-11.651-30.053-25.302-1.996-.001v2.654l6.926 10.136 36.574 54.975 1.895 16.859-2.653 5.485-9.479 3.311-10.414-1.895-21.408-30.054-22.092-33.844-17.819-30.331-2.173 1.238-10.515 113.261-4.929 5.788-11.374 4.348-9.478-7.204-5.03-11.652 5.03-23.027 6.066-30.052 4.928-23.886 4.449-29.674 2.654-9.858-.177-.657-2.173.278-22.37 30.71-34.021 45.977-26.919 28.815-6.445 2.553-11.173-5.789 1.037-10.337 6.243-9.2 37.257-47.392 22.47-29.371 14.508-16.961-.101-2.451h-.859l-98.954 64.251-17.618 2.275-7.583-7.103.936-11.652 3.589-3.791 29.749-20.474-.101.102.024.101z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('dipole', 'grok')" class="ai-btn" title="Ask Grok">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.641">
+                            <path
+                                d="M115.612 0h280.776C459.975 0 512 52.026 512 115.612v278.416c0 63.587-52.025 115.613-115.612 115.613H115.612C52.026 509.641 0 457.615 0 394.028V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#fff"
+                                d="M213.235 306.019l178.976-180.002v.169l51.695-51.763c-.924 1.32-1.86 2.605-2.785 3.89-39.281 54.164-58.46 80.649-43.07 146.922l-.09-.101c10.61 45.11-.744 95.137-37.398 131.836-46.216 46.306-120.167 56.611-181.063 14.928l42.462-19.675c38.863 15.278 81.392 8.57 111.947-22.03 30.566-30.6 37.432-75.159 22.065-112.252-2.92-7.025-11.67-8.795-17.792-4.263l-124.947 92.341zm-25.786 22.437l-.033.034L68.094 435.217c7.565-10.429 16.957-20.294 26.327-30.149 26.428-27.803 52.653-55.359 36.654-94.302-21.422-52.112-8.952-113.177 30.724-152.898 41.243-41.254 101.98-51.661 152.706-30.758 11.23 4.172 21.016 10.114 28.638 15.639l-42.359 19.584c-39.44-16.563-84.629-5.299-112.207 22.313-37.298 37.308-44.84 102.003-1.128 143.81z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="sim-controls">
+                    <div class="slider-group">
+                        <label>Field Strength <span id="val-strength">1.0</span></label>
+                        <input type="range" id="input-strength" min="0.5" max="2.0" step="0.1" value="1.0">
+                    </div>
+                </div>
+            </div>
+            <div class="visual-col">
+                <canvas id="canvas-dipole"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 2: Current-Carrying Wire -->
+    <section>
+        <div class="split-layout">
+            <div class="content-col">
+                <h3 class="section-label" style="color: var(--accent-secondary);">02. Moving Charges</h3>
+                <h2>Current-Carrying Wire</h2>
+                <p>
+                    A current-carrying wire generates a magnetic field that encircles the wire.
+                    The direction of the field follows the <strong>right-hand rule</strong>: if you wrap
+                    your right hand around the wire with your thumb pointing in the direction of current,
+                    your fingers curl in the direction of the magnetic field.
+                </p>
+                <div class="math-block">
+                    $$B = \frac{\mu_0 I}{2\pi r}$$
+                </div>
+                <p>
+                    The field strength $B$ at distance $r$ from an infinitely long wire carrying current $I$
+                    follows Ampère's law. Notice how the field decreases with distance ($1/r$ relationship),
+                    unlike the electric field ($1/r^2$) or magnetic dipole ($1/r^3$).
+                </p>
+
+                <div class="etu-card">
+                    <span class="etu-tag">Engineering Application</span>
+                    <h4 style="margin-bottom:0.5rem;">Electromagnets</h4>
+                    <p style="font-size: 0.95rem; margin-bottom:0;">
+                        Coiling current-carrying wires creates a strong magnetic field—the principle behind
+                        electromagnets used in MRI machines, scrap metal cranes, and electric motors.
+                    </p>
+                </div>
+
+                <div class="ai-links">
+                    <span class="ai-label">Ask AI:</span>
+                    <button onclick="openAI('wire', 'perplexity')" class="ai-btn" title="Ask Perplexity">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('wire', 'gemini')" class="ai-btn" title="Ask Gemini">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('wire', 'chatgpt')" class="ai-btn" title="Ask ChatGPT">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('wire', 'claude')" class="ai-btn" title="Ask Claude">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.64">
+                            <path fill="#D77655"
+                                d="M115.612 0h280.775C459.974 0 512 52.026 512 115.612v278.415c0 63.587-52.026 115.612-115.613 115.612H115.612C52.026 509.639 0 457.614 0 394.027V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#FCF2EE" fill-rule="nonzero"
+                                d="M142.27 316.619l73.655-41.326 1.238-3.589-1.238-1.996-3.589-.001-12.31-.759-42.084-1.138-36.498-1.516-35.361-1.896-8.897-1.895-8.34-10.995.859-5.484 7.482-5.03 10.717.935 23.683 1.617 35.537 2.452 25.782 1.517 38.193 3.968h6.064l.86-2.451-2.073-1.517-1.618-1.517-36.776-24.922-39.81-26.338-20.852-15.166-11.273-7.683-5.687-7.204-2.451-15.721 10.237-11.273 13.75.935 3.513.936 13.928 10.716 29.749 23.027 38.848 28.612 5.687 4.727 2.275-1.617.278-1.138-2.553-4.271-21.13-38.193-22.546-38.848-10.035-16.101-2.654-9.655c-.935-3.968-1.617-7.304-1.617-11.374l11.652-15.823 6.445-2.073 15.545 2.073 6.547 5.687 9.655 22.092 15.646 34.78 24.265 47.291 7.103 14.028 3.791 12.992 1.416 3.968 2.449-.001v-2.275l1.997-26.641 3.69-32.707 3.589-42.084 1.239-11.854 5.863-14.206 11.652-7.683 9.099 4.348 7.482 10.716-1.036 6.926-4.449 28.915-8.72 45.294-5.687 30.331h3.313l3.792-3.791 15.342-20.372 25.782-32.227 11.374-12.789 13.27-14.129 8.517-6.724 16.1-.001 11.854 17.617-5.307 18.199-16.581 21.029-13.75 17.819-19.716 26.54-12.309 21.231 1.138 1.694 2.932-.278 44.536-9.479 24.062-4.347 28.714-4.928 12.992 6.066 1.416 6.167-5.106 12.613-30.71 7.583-36.018 7.204-53.636 12.689-.657.48.758.935 24.164 2.275 10.337.556h25.301l47.114 3.514 12.309 8.139 7.381 9.959-1.238 7.583-18.957 9.655-25.579-6.066-59.702-14.205-20.474-5.106-2.83-.001v1.694l17.061 16.682 31.266 28.233 39.152 36.397 1.997 8.999-5.03 7.102-5.307-.758-34.401-25.883-13.27-11.651-30.053-25.302-1.996-.001v2.654l6.926 10.136 36.574 54.975 1.895 16.859-2.653 5.485-9.479 3.311-10.414-1.895-21.408-30.054-22.092-33.844-17.819-30.331-2.173 1.238-10.515 113.261-4.929 5.788-11.374 4.348-9.478-7.204-5.03-11.652 5.03-23.027 6.066-30.052 4.928-23.886 4.449-29.674 2.654-9.858-.177-.657-2.173.278-22.37 30.71-34.021 45.977-26.919 28.815-6.445 2.553-11.173-5.789 1.037-10.337 6.243-9.2 37.257-47.392 22.47-29.371 14.508-16.961-.101-2.451h-.859l-98.954 64.251-17.618 2.275-7.583-7.103.936-11.652 3.589-3.791 29.749-20.474-.101.102.024.101z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('wire', 'grok')" class="ai-btn" title="Ask Grok">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.641">
+                            <path
+                                d="M115.612 0h280.776C459.975 0 512 52.026 512 115.612v278.416c0 63.587-52.025 115.613-115.612 115.613H115.612C52.026 509.641 0 457.615 0 394.028V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#fff"
+                                d="M213.235 306.019l178.976-180.002v.169l51.695-51.763c-.924 1.32-1.86 2.605-2.785 3.89-39.281 54.164-58.46 80.649-43.07 146.922l-.09-.101c10.61 45.11-.744 95.137-37.398 131.836-46.216 46.306-120.167 56.611-181.063 14.928l42.462-19.675c38.863 15.278 81.392 8.57 111.947-22.03 30.566-30.6 37.432-75.159 22.065-112.252-2.92-7.025-11.67-8.795-17.792-4.263l-124.947 92.341zm-25.786 22.437l-.033.034L68.094 435.217c7.565-10.429 16.957-20.294 26.327-30.149 26.428-27.803 52.653-55.359 36.654-94.302-21.422-52.112-8.952-113.177 30.724-152.898 41.243-41.254 101.98-51.661 152.706-30.758 11.23 4.172 21.016 10.114 28.638 15.639l-42.359 19.584c-39.44-16.563-84.629-5.299-112.207 22.313-37.298 37.308-44.84 102.003-1.128 143.81z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="sim-controls">
+                    <div class="slider-group">
+                        <label>Current (I) <span id="val-current">5</span>A</label>
+                        <input type="range" id="input-current" min="1" max="10" step="1" value="5">
+                    </div>
+                </div>
+            </div>
+            <div class="visual-col">
+                <canvas id="canvas-wire"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 3: Electromagnetic Induction -->
+    <section>
+        <div class="split-layout">
+            <div class="content-col">
+                <h3 class="section-label" style="color: var(--text-muted);">03. Faraday's Law</h3>
+                <h2>Electromagnetic Induction</h2>
+                <p>
+                    A changing magnetic field through a conducting loop creates an <strong>induced electromotive force (EMF)</strong>.
+                    This phenomenon, discovered by Michael Faraday, is the foundation of electric generators,
+                    transformers, and wireless charging. The induced EMF opposes the change in flux—
+                    <strong>Lenz's law</strong> states nature resists change.
+                </p>
+                <div class="math-block">
+                    $$\mathcal{E} = -N\frac{d\Phi_B}{dt}$$
+                </div>
+                <p>
+                    Here, $\mathcal{E}$ is the induced EMF, $N$ is the number of turns, and $\frac{d\Phi_B}{dt}$ is the rate of
+                    change of magnetic flux. The minus sign represents Lenz's law—nature's tendency to oppose change.
+                </p>
+
+                <div class="etu-card">
+                    <span class="etu-tag">Everyday Technology</span>
+                    <h4 style="margin-bottom:0.5rem;">Electric Generators</h4>
+                    <p style="font-size: 0.95rem; margin-bottom:0;">
+                        Power plants rotate coils in magnetic fields to generate electricity. Your phone charger uses
+                        a transformer stepping down voltage via electromagnetic induction.
+                    </p>
+                </div>
+
+                <div class="ai-links">
+                    <span class="ai-label">Ask AI:</span>
+                    <button onclick="openAI('induction', 'perplexity')" class="ai-btn" title="Ask Perplexity">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.4904 0v7.0896H1.6023v10.3976h2.8882V24l6.932-6.3591v6.2005h1.1554v-6.0469l6.9318 6.1807v-6.4879h2.8882V7.0896zm-3.4657-4.531v4.531h-5.355l5.355-4.531zm-13.2862.0676 4.8691 4.4634H5.6458V2.6262zM2.7576 16.332V8.245h7.8476l-6.1149 6.1147v1.9723H2.7576zm2.8882 5.0404v-3.8852h.0001v-2.6488l5.7763-5.7764v7.0111l-5.7764 5.2993zm12.7086.0248-5.7766-5.1509V9.0618l5.7766 5.7766v6.5588zm2.8882-5.0652h-1.733v-1.9723L13.3948 8.245h7.8478v8.087z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('induction', 'gemini')" class="ai-btn" title="Ask Gemini">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('induction', 'chatgpt')" class="ai-btn" title="Ask ChatGPT">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('induction', 'claude')" class="ai-btn" title="Ask Claude">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.64">
+                            <path fill="#D77655"
+                                d="M115.612 0h280.775C459.974 0 512 52.026 512 115.612v278.415c0 63.587-52.026 115.612-115.613 115.612H115.612C52.026 509.639 0 457.614 0 394.027V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#FCF2EE" fill-rule="nonzero"
+                                d="M142.27 316.619l73.655-41.326 1.238-3.589-1.238-1.996-3.589-.001-12.31-.759-42.084-1.138-36.498-1.516-35.361-1.896-8.897-1.895-8.34-10.995.859-5.484 7.482-5.03 10.717.935 23.683 1.617 35.537 2.452 25.782 1.517 38.193 3.968h6.064l.86-2.451-2.073-1.517-1.618-1.517-36.776-24.922-39.81-26.338-20.852-15.166-11.273-7.683-5.687-7.204-2.451-15.721 10.237-11.273 13.75.935 3.513.936 13.928 10.716 29.749 23.027 38.848 28.612 5.687 4.727 2.275-1.617.278-1.138-2.553-4.271-21.13-38.193-22.546-38.848-10.035-16.101-2.654-9.655c-.935-3.968-1.617-7.304-1.617-11.374l11.652-15.823 6.445-2.073 15.545 2.073 6.547 5.687 9.655 22.092 15.646 34.78 24.265 47.291 7.103 14.028 3.791 12.992 1.416 3.968 2.449-.001v-2.275l1.997-26.641 3.69-32.707 3.589-42.084 1.239-11.854 5.863-14.206 11.652-7.683 9.099 4.348 7.482 10.716-1.036 6.926-4.449 28.915-8.72 45.294-5.687 30.331h3.313l3.792-3.791 15.342-20.372 25.782-32.227 11.374-12.789 13.27-14.129 8.517-6.724 16.1-.001 11.854 17.617-5.307 18.199-16.581 21.029-13.75 17.819-19.716 26.54-12.309 21.231 1.138 1.694 2.932-.278 44.536-9.479 24.062-4.347 28.714-4.928 12.992 6.066 1.416 6.167-5.106 12.613-30.71 7.583-36.018 7.204-53.636 12.689-.657.48.758.935 24.164 2.275 10.337.556h25.301l47.114 3.514 12.309 8.139 7.381 9.959-1.238 7.583-18.957 9.655-25.579-6.066-59.702-14.205-20.474-5.106-2.83-.001v1.694l17.061 16.682 31.266 28.233 39.152 36.397 1.997 8.999-5.03 7.102-5.307-.758-34.401-25.883-13.27-11.651-30.053-25.302-1.996-.001v2.654l6.926 10.136 36.574 54.975 1.895 16.859-2.653 5.485-9.479 3.311-10.414-1.895-21.408-30.054-22.092-33.844-17.819-30.331-2.173 1.238-10.515 113.261-4.929 5.788-11.374 4.348-9.478-7.204-5.03-11.652 5.03-23.027 6.066-30.052 4.928-23.886 4.449-29.674 2.654-9.858-.177-.657-2.173.278-22.37 30.71-34.021 45.977-26.919 28.815-6.445 2.553-11.173-5.789 1.037-10.337 6.243-9.2 37.257-47.392 22.47-29.371 14.508-16.961-.101-2.451h-.859l-98.954 64.251-17.618 2.275-7.583-7.103.936-11.652 3.589-3.791 29.749-20.474-.101.102.024.101z" />
+                        </svg>
+                    </button>
+                    <button onclick="openAI('induction', 'grok')" class="ai-btn" title="Ask Grok">
+                        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision"
+                            text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                            clip-rule="evenodd" viewBox="0 0 512 509.641">
+                            <path
+                                d="M115.612 0h280.776C459.975 0 512 52.026 512 115.612v278.416c0 63.587-52.025 115.613-115.612 115.613H115.612C52.026 509.641 0 457.615 0 394.028V115.612C0 52.026 52.026 0 115.612 0z" />
+                            <path fill="#fff"
+                                d="M213.235 306.019l178.976-180.002v.169l51.695-51.763c-.924 1.32-1.86 2.605-2.785 3.89-39.281 54.164-58.46 80.649-43.07 146.922l-.09-.101c10.61 45.11-.744 95.137-37.398 131.836-46.216 46.306-120.167 56.611-181.063 14.928l42.462-19.675c38.863 15.278 81.392 8.57 111.947-22.03 30.566-30.6 37.432-75.159 22.065-112.252-2.92-7.025-11.67-8.795-17.792-4.263l-124.947 92.341zm-25.786 22.437l-.033.034L68.094 435.217c7.565-10.429 16.957-20.294 26.327-30.149 26.428-27.803 52.653-55.359 36.654-94.302-21.422-52.112-8.952-113.177 30.724-152.898 41.243-41.254 101.98-51.661 152.706-30.758 11.23 4.172 21.016 10.114 28.638 15.639l-42.359 19.584c-39.44-16.563-84.629-5.299-112.207 22.313-37.298 37.308-44.84 102.003-1.128 143.81z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="sim-controls">
+                    <div class="slider-group">
+                        <label>Magnet Speed <span id="val-speed">1.0</span>x</label>
+                        <input type="range" id="input-speed" min="0.5" max="3.0" step="0.1" value="1.0">
+                    </div>
+                </div>
+            </div>
+            <div class="visual-col">
+                <canvas id="canvas-induction"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="references">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h3>Academic References</h3>
+            <ul>
+                <li><strong>Halliday, D., Resnick, R., & Walker, J.</strong> (2013). <em>Fundamentals of Physics</em>,
+                    10th Edition.</li>
+                <li><strong>Griffiths, D. J.</strong> (2017). <em>Introduction to Electrodynamics</em>, 4th Edition.</li>
+                <li><strong>Purcell, E. M., & Morin, D. J.</strong> (2013). <em>Electricity and Magnetism</em>, 3rd Edition.</li>
+            </ul>
+        </div>
+    </section>
+
+    <script src="../js/common.js"></script>
+    <script>
+        function openAI(topic, model) {
+            let prompt = "";
+            switch (topic) {
+                case 'dipole':
+                    prompt = "Explain magnetic dipoles, how bar magnets create magnetic fields, and compare magnetic field lines to electric field lines. Why do magnetic field lines always form closed loops?";
+                    break;
+                case 'wire':
+                    prompt = "Describe the magnetic field around a current-carrying wire. How does the right-hand rule work for determining field direction? How does the field strength vary with distance?";
+                    break;
+                case 'induction':
+                    prompt = "What is electromagnetic induction and Faraday's law? Explain Lenz's law and how induced currents oppose changes in magnetic flux. Provide real-world applications.";
+                    break;
+            }
+            const encoded = encodeURIComponent(prompt);
+
+            if (model === 'gemini') {
+                navigator.clipboard.writeText(prompt).then(() => {
+                    alert("Gemini doesn't support auto-fill. The prompt has been copied to your clipboard.");
+                    window.open('https://gemini.google.com/app', '_blank');
+                });
+                return;
+            }
+
+            let url = "";
+            switch (model) {
+                case 'perplexity': url = `https://www.perplexity.ai/search?q=${encoded}`; break;
+                case 'chatgpt': url = `https://chatgpt.com/?q=${encoded}`; break;
+                case 'claude': url = `https://claude.ai/new?q=${encoded}`; break;
+                case 'grok': url = `https://grok.com/?q=${encoded}`; break;
+            }
+            if (url) window.open(url, '_blank');
+        }
+
+        const APP = {
+            visuals: [],
+            observer: null,
+
+            init() {
+                this.setupObserver();
+                this.initScrollAnimations();
+                this.initVisuals();
+
+                window.addEventListener('theme-changed', (e) => {
+                    this.visuals.forEach(v => v.updateColors());
+                });
+            },
+
+            setupObserver() {
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const visual = this.visuals.find(v => v.canvas === entry.target);
+                        if (visual) visual.isVisible = entry.isIntersecting;
+                    });
+                }, { threshold: 0.1 });
+            },
+
+            initScrollAnimations() {
+                gsap.registerPlugin(ScrollTrigger);
+                gsap.utils.toArray('h1, h2, h3').forEach(el => {
+                    gsap.from(el, { opacity: 0, y: 30, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%" } });
+                });
+                gsap.utils.toArray('.math-block').forEach(el => {
+                    gsap.from(el, { scale: 0.95, opacity: 0, duration: 1, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 90%" } });
+                });
+            },
+
+            initVisuals() {
+                this.addVisual(new DipoleVisual('canvas-dipole'));
+                this.addVisual(new WireVisual('canvas-wire'));
+                this.addVisual(new InductionVisual('canvas-induction'));
+            },
+
+            addVisual(visual) {
+                this.visuals.push(visual);
+                this.observer.observe(visual.canvas);
+            }
+        };
+
+        class BaseVisual {
+            constructor(id) {
+                this.canvas = document.getElementById(id);
+                this.ctx = this.canvas.getContext('2d');
+                this.isVisible = false;
+                this.updateColors();
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.loop();
+            }
+            updateColors() {
+                this.color = getComputedStyle(document.body).getPropertyValue('--text-main').trim();
+                this.bg = getComputedStyle(document.body).getPropertyValue('--bg-color').trim();
+                this.accent = getComputedStyle(document.body).getPropertyValue('--accent').trim();
+                this.secondary = getComputedStyle(document.body).getPropertyValue('--accent-secondary').trim();
+            }
+            resize() {
+                const rect = this.canvas.parentElement.getBoundingClientRect();
+                this.canvas.width = rect.width * 2;
+                this.canvas.height = rect.height * 2;
+                this.scale = 2;
+                this.cx = this.canvas.width / 2;
+                this.cy = this.canvas.height / 2;
+            }
+            loop() {
+                if (this.isVisible) this.draw();
+                requestAnimationFrame(() => this.loop());
+            }
+            draw() { }
+        }
+
+        class DipoleVisual extends BaseVisual {
+            constructor(id) {
+                super(id);
+                this.strength = 1.0;
+
+                // Setup controls
+                const strengthInput = document.getElementById('input-strength');
+                strengthInput.addEventListener('input', (e) => {
+                    this.strength = parseFloat(e.target.value);
+                    document.getElementById('val-strength').textContent = e.target.value;
+                });
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Draw magnet
+                const magnetWidth = 120 * this.scale;
+                const magnetHeight = 40 * this.scale;
+
+                // North pole (red)
+                this.ctx.fillStyle = '#e74c3c';
+                this.ctx.fillRect(this.cx - magnetWidth/2, this.cy - magnetHeight/2, magnetWidth/2, magnetHeight);
+
+                // South pole (blue)
+                this.ctx.fillStyle = '#3498db';
+                this.ctx.fillRect(this.cx, this.cy - magnetHeight/2, magnetWidth/2, magnetHeight);
+
+                // Labels
+                this.ctx.fillStyle = 'white';
+                this.ctx.font = `${14 * this.scale}px Inter`;
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText('N', this.cx - magnetWidth/4, this.cy + 5 * this.scale);
+                this.ctx.fillText('S', this.cx + magnetWidth/4, this.cy + 5 * this.scale);
+
+                // Draw field lines
+                this.ctx.strokeStyle = this.accent;
+                this.ctx.lineWidth = 1.5 * this.scale;
+                this.ctx.globalAlpha = 0.6 * this.strength;
+
+                const numLines = 8;
+                for (let i = 0; i < numLines; i++) {
+                    const angle = (i / numLines) * Math.PI - Math.PI/2;
+                    const rStart = magnetWidth/2 + 10 * this.scale;
+
+                    // Trace field line
+                    this.ctx.beginPath();
+                    let x = this.cx - magnetWidth/2;
+                    let y = this.cy + rStart * Math.sin(angle);
+                    this.ctx.moveTo(x, y);
+
+                    for (let t = 0; t < Math.PI; t += 0.05) {
+                        const r = rStart * Math.exp(t * 0.3);
+                        x = this.cx + r * Math.cos(t + Math.PI);
+                        y = this.cy + r * Math.sin(t + Math.PI);
+                        this.ctx.lineTo(x, y);
+                    }
+                    this.ctx.stroke();
+                }
+
+                // Draw second half of field lines
+                for (let i = 0; i < numLines; i++) {
+                    const angle = (i / numLines) * Math.PI + Math.PI/2;
+                    const rStart = magnetWidth/2 + 10 * this.scale;
+
+                    this.ctx.beginPath();
+                    let x = this.cx + magnetWidth/2;
+                    let y = this.cy + rStart * Math.sin(angle);
+                    this.ctx.moveTo(x, y);
+
+                    for (let t = 0; t < Math.PI; t += 0.05) {
+                        const r = rStart * Math.exp(t * 0.3);
+                        x = this.cx + r * Math.cos(t);
+                        y = this.cy + r * Math.sin(t);
+                        this.ctx.lineTo(x, y);
+                    }
+                    this.ctx.stroke();
+                }
+
+                this.ctx.globalAlpha = 1;
+
+                // Draw direction arrows on field lines
+                this.ctx.fillStyle = this.accent;
+                for (let i = 0; i < 4; i++) {
+                    const angle = i * Math.PI/2 + 0.5;
+                    const r = (this.canvas.height/2 - 40 * this.scale);
+                    const arrowX = this.cx + r * Math.cos(angle);
+                    const arrowY = this.cy + r * Math.sin(angle);
+
+                    this.ctx.beginPath();
+                    this.ctx.arc(arrowX, arrowY, 3 * this.scale, 0, Math.PI * 2);
+                    this.ctx.fill();
+                }
+            }
+        }
+
+        class WireVisual extends BaseVisual {
+            constructor(id) {
+                super(id);
+                this.current = 5;
+                this.time = 0;
+
+                // Setup controls
+                const currentInput = document.getElementById('input-current');
+                currentInput.addEventListener('input', (e) => {
+                    this.current = parseFloat(e.target.value);
+                    document.getElementById('val-current').textContent = e.target.value;
+                });
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.time += 0.05;
+
+                // Draw wire (circle cross-section)
+                const wireRadius = 15 * this.scale;
+                this.ctx.fillStyle = this.color;
+                this.ctx.beginPath();
+                this.ctx.arc(this.cx, this.cy, wireRadius, 0, Math.PI * 2);
+                this.ctx.fill();
+
+                // Current direction indicator
+                this.ctx.fillStyle = this.accent;
+                if (this.current > 0) {
+                    // Current coming out of page (dot)
+                    this.ctx.beginPath();
+                    this.ctx.arc(this.cx, this.cy, wireRadius * 0.4, 0, Math.PI * 2);
+                    this.ctx.fill();
+                } else {
+                    // Current going into page (cross)
+                    this.ctx.strokeStyle = this.accent;
+                    this.ctx.lineWidth = 3 * this.scale;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(this.cx - wireRadius * 0.4, this.cy - wireRadius * 0.4);
+                    this.ctx.lineTo(this.cx + wireRadius * 0.4, this.cy + wireRadius * 0.4);
+                    this.ctx.moveTo(this.cx + wireRadius * 0.4, this.cy - wireRadius * 0.4);
+                    this.ctx.lineTo(this.cx - wireRadius * 0.4, this.cy + wireRadius * 0.4);
+                    this.ctx.stroke();
+                }
+
+                // Draw magnetic field circles
+                const fieldIntensity = (this.current / 5);
+                this.ctx.strokeStyle = this.secondary;
+                this.ctx.globalAlpha = 0.5 * fieldIntensity;
+                this.ctx.lineWidth = 2 * this.scale;
+
+                const numCircles = 6;
+                for (let i = 1; i <= numCircles; i++) {
+                    const radius = (wireRadius + 20 * this.scale * i) * fieldIntensity;
+                    this.ctx.beginPath();
+                    this.ctx.arc(this.cx, this.cy, radius, 0, Math.PI * 2);
+                    this.ctx.stroke();
+                }
+                this.ctx.globalAlpha = 1;
+
+                // Draw animated field vectors
+                const numVectors = 12;
+                for (let i = 0; i < numVectors; i++) {
+                    const angle = (i / numVectors) * Math.PI * 2 + this.time;
+                    const r = wireRadius + 30 * this.scale + (i % 3) * 40 * this.scale;
+
+                    const x = this.cx + Math.cos(angle) * r;
+                    const y = this.cy + Math.sin(angle) * r;
+
+                    // Tangent direction (perpendicular to radius)
+                    const tangentAngle = angle + Math.PI/2;
+
+                    // Draw arrow
+                    this.ctx.strokeStyle = this.accent;
+                    this.ctx.lineWidth = 2 * this.scale;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(x, y);
+                    this.ctx.lineTo(x + Math.cos(tangentAngle) * 20 * this.scale,
+                                   y + Math.sin(tangentAngle) * 20 * this.scale);
+                    this.ctx.stroke();
+
+                    // Arrow head
+                    this.ctx.fillStyle = this.accent;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(x + Math.cos(tangentAngle) * 20 * this.scale,
+                                   y + Math.sin(tangentAngle) * 20 * this.scale);
+                    this.ctx.lineTo(x + Math.cos(tangentAngle) * 20 * this.scale - Math.cos(tangentAngle - 0.5) * 8 * this.scale,
+                                   y + Math.sin(tangentAngle) * 20 * this.scale - Math.sin(tangentAngle - 0.5) * 8 * this.scale);
+                    this.ctx.lineTo(x + Math.cos(tangentAngle) * 20 * this.scale - Math.cos(tangentAngle + 0.5) * 8 * this.scale,
+                                   y + Math.sin(tangentAngle) * 20 * this.scale - Math.sin(tangentAngle + 0.5) * 8 * this.scale);
+                    this.ctx.closePath();
+                    this.ctx.fill();
+                }
+            }
+        }
+
+        class InductionVisual extends BaseVisual {
+            constructor(id) {
+                super(id);
+                this.speed = 1.0;
+                this.time = 0;
+
+                // Setup controls
+                const speedInput = document.getElementById('input-speed');
+                speedInput.addEventListener('input', (e) => {
+                    this.speed = parseFloat(e.target.value);
+                    document.getElementById('val-speed').textContent = e.target.value;
+                });
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.time += 0.03 * this.speed;
+
+                // Draw coil loop
+                const coilRadius = 60 * this.scale;
+                this.ctx.strokeStyle = this.color;
+                this.ctx.lineWidth = 4 * this.scale;
+                this.ctx.beginPath();
+                this.ctx.ellipse(this.cx, this.cy, coilRadius, coilRadius * 0.6, 0, 0, Math.PI * 2);
+                this.ctx.stroke();
+
+                // Draw magnet moving through coil
+                const magnetY = this.cy + Math.sin(this.time) * 80 * this.scale;
+                const magnetWidth = 100 * this.scale;
+                const magnetHeight = 30 * this.scale;
+
+                // North pole
+                this.ctx.fillStyle = '#e74c3c';
+                this.ctx.fillRect(this.cx - magnetWidth/2, magnetY - magnetHeight/2, magnetWidth/2, magnetHeight);
+
+                // South pole
+                this.ctx.fillStyle = '#3498db';
+                this.ctx.fillRect(this.cx, magnetY - magnetHeight/2, magnetWidth/2, magnetHeight);
+
+                // Labels
+                this.ctx.fillStyle = 'white';
+                this.ctx.font = `${12 * this.scale}px Inter`;
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText('N', this.cx - magnetWidth/4, magnetY + 4 * this.scale);
+                this.ctx.fillText('S', this.cx + magnetWidth/4, magnetY + 4 * this.scale);
+
+                // Calculate induced current (proportional to velocity)
+                const velocity = Math.cos(this.time) * this.speed;
+                const currentIntensity = Math.abs(velocity);
+
+                // Draw induced current in coil
+                if (currentIntensity > 0.1) {
+                    this.ctx.strokeStyle = this.accent;
+                    this.ctx.lineWidth = 4 * this.scale;
+                    this.ctx.globalAlpha = currentIntensity;
+
+                    // Draw current direction arrows on coil
+                    const numArrows = 4;
+                    for (let i = 0; i < numArrows; i++) {
+                        const angle = (i / numArrows) * Math.PI * 2 + (velocity > 0 ? 0 : Math.PI);
+                        const arrowX = this.cx + Math.cos(angle) * coilRadius;
+                        const arrowY = this.cy + Math.sin(angle) * coilRadius * 0.6;
+
+                        const tangentAngle = angle + Math.PI/2;
+
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(arrowX, arrowY);
+                        this.ctx.lineTo(arrowX + Math.cos(tangentAngle) * 15 * this.scale,
+                                       arrowY + Math.sin(tangentAngle) * 15 * this.scale);
+                        this.ctx.stroke();
+
+                        // Arrow head
+                        this.ctx.fillStyle = this.accent;
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(arrowX + Math.cos(tangentAngle) * 15 * this.scale,
+                                       arrowY + Math.sin(tangentAngle) * 15 * this.scale);
+                        this.ctx.lineTo(arrowX + Math.cos(tangentAngle) * 15 * this.scale - Math.cos(tangentAngle - 0.5) * 6 * this.scale,
+                                       arrowY + Math.sin(tangentAngle) * 15 * this.scale - Math.sin(tangentAngle - 0.5) * 6 * this.scale);
+                        this.ctx.lineTo(arrowX + Math.cos(tangentAngle) * 15 * this.scale - Math.cos(tangentAngle + 0.5) * 6 * this.scale,
+                                       arrowY + Math.sin(tangentAngle) * 15 * this.scale - Math.sin(tangentAngle + 0.5) * 6 * this.scale);
+                        this.ctx.closePath();
+                        this.ctx.fill();
+                    }
+
+                    this.ctx.globalAlpha = 1;
+                }
+
+                // Draw field lines from magnet
+                this.ctx.strokeStyle = this.secondary;
+                this.ctx.globalAlpha = 0.4;
+                this.ctx.lineWidth = 1.5 * this.scale;
+
+                for (let i = 0; i < 4; i++) {
+                    const offset = (i - 1.5) * 25 * this.scale;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(this.cx - magnetWidth/2, magnetY + offset);
+                    this.ctx.quadraticCurveTo(this.cx - magnetWidth/2 - 40 * this.scale, magnetY + offset,
+                                            this.cx - magnetWidth/2, magnetY + offset + 40 * this.scale);
+                    this.ctx.quadraticCurveTo(this.cx - magnetWidth/2 + 40 * this.scale, magnetY + offset + 40 * this.scale,
+                                            this.cx + magnetWidth/2, magnetY + offset);
+                    this.ctx.stroke();
+                }
+
+                this.ctx.globalAlpha = 1;
+
+                // Display EMF indicator
+                const emfIntensity = Math.abs(velocity * 100).toFixed(0);
+                this.ctx.fillStyle = this.color;
+                this.ctx.font = `${12 * this.scale}px Inter`;
+                this.ctx.textAlign = 'center';
+                this.ctx.fillText(`Induced EMF: ${emfIntensity} mV`, this.cx, this.cy + coilRadius + 50 * this.scale);
+
+                // Direction indicator
+                if (currentIntensity > 0.2) {
+                    this.ctx.fillStyle = this.accent;
+                    const directionText = velocity > 0 ? 'Lenz\'s Law: Opposing ↓' : 'Lenz\'s Law: Opposing ↑';
+                    this.ctx.fillText(directionText, this.cx, this.cy - coilRadius - 30 * this.scale);
+                }
+            }
+        }
+
+        window.onload = () => APP.init();
+    </script>
+</body>
+
+</html>
